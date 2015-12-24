@@ -1,0 +1,53 @@
+# Template file for 'wlc-git'
+# NOTE: Detailed dependencies (which xcb components etc.) can be read
+# 	from CMakeLists.txt!
+
+pkgname=wlc-git
+version=LATEST
+revision=1
+build_style=cmake
+hostmakedepends="cmake pkg-config"
+depends="wayland pixman libxkbcommon eudev-libudev libinput libX11 libxcb xcb-util xcb-util-wm xcb-util-renderutil xcb-util-keysyms xcb-util-image libwayland-egl libdrm libGLES"
+makedepends="wayland-devel pixman-devel libxkbcommon-devel eudev-libudev-devel libinput-devel libX11-devel libxcb-devel xcb-util-devel xcb-util-wm-devel xcb-util-renderutil-devel xcb-util-keysyms-devel xcb-util-image-devel MesaLib-devel libwayland-egl libdrm-devel libgbm"
+short_desc="Wayland compositor library"
+maintainer="robotanarchy <robotanarchy@irc>"
+license="MIT"
+homepage="https://github.com/Cloudef/wlc"
+
+
+do_fetch() {
+	cp -R /sources/$pkgname $pkgname-$version
+	cd $pkgname-$version
+}
+
+pre_build()
+{
+	# wlc loads '.so' libraries dynamically, not by using their correct
+	# sonames yet. The author of wlc, Cloudef wants to solve this with
+	# plugins: https://github.com/Cloudef/wlc/issues/47
+	# Until that issue is fixed, here's a simple workaround, that hard-
+	# codes the sonames of the libraries used at compile time.
+	
+	echo "Replacing dynamically loaded libraries with their sonames..."
+	while IFS= read -r i; do
+		file="$(echo $i | cut -d ':' -f 1)"
+		lib="$(echo $i | cut -d '"' -f 2)"
+		[ -e "/usr/lib/$lib" ] || continue
+		lib_soname="$(basename $(realpath /usr/lib/$lib))"
+		echo "$file: $lib -> $lib_soname"
+		sed --in-place "s/\"$lib\"/\"$lib_soname\"/g" "$file"
+	done < <(grep -r -E '"lib.+\.so"' --only-matching src)
+}
+
+post_install() {
+	vlicense LICENSE
+}
+
+wlc-git-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+	}
+}

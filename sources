@@ -1,0 +1,18 @@
+# Format:
+# package-name type source-url [subfolder_for_checkout]
+#
+# You can specify multiple repositories per package-name, if you have too.
+# The version will get extracted from the first repo listed for a package.
+# Keep in mind, that git submodules are also supported.
+#
+# The void-packages line must always be there.
+#
+# You don't need to add a repository for every custom package - only if you
+# want to build the latest version and automatically update the template
+# version number.
+#
+
+void-packages git https://github.com/voidlinux/void-packages/
+
+sway-git git https://github.com/SirCmpwn/sway
+wlc-git git https://github.com/Cloudef/wlc

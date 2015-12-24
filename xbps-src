@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -e "cache/void-packages/xbps-src" ]; then
+	echo "ERROR: $bin doesn't exist yet."
+	echo "You'll need to run update.sh first!"
+	exit 1
+fi
+
+cd cache/void-packages
+./xbps-src $*
