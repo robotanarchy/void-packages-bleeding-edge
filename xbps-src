@@ -2,7 +2,7 @@
 
 if [ ! -e "cache/void-packages/xbps-src" ]; then
 	echo "ERROR: $bin doesn't exist yet."
-	echo "You'll need to run update.sh first!"
+	echo "You'll need to run overlay.sh first!"
 	exit 1
 fi
 
