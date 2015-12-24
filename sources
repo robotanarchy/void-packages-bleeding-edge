@@ -1,7 +1,7 @@
 # Format:
 # package-name type source-url [subfolder_for_checkout]
 #
-# You can specify multiple repositories per package-name, if you have too.
+# You can specify multiple repositories per package-name, if you have to.
 # The version will get extracted from the first repo listed for a package.
 # Keep in mind, that git submodules are also supported.
 #
