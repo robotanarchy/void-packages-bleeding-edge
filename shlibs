@@ -1,2 +1,5 @@
+# overlay.sh will merge this file with shlibs in void-packages:
+# https://github.com/voidlinux/void-packages/blob/master/common/shlibs
+
 libwlc.so.0 wlc-git-0_1
 
