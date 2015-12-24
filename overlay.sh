@@ -1,4 +1,6 @@
 #!/bin/bash
+# Void Linux inofficial package overlay script
+# Info: https://github.com/robotanarchy/void-packages-bleeding-edge
 
 #
 # FUNCTIONS
@@ -152,13 +154,13 @@ OVERLAY_ALL_PKGS=""
 for pkg in "$@"
 do
 	STEP "Parsing dependencies of $pkg..."
-	source "srcpkgs/$pkg/template"
 	
 	if [[ "$OVERLAY_ALL_PKGS" != *"$pkg"* ]]; then
 		OVERLAY_ALL_PKGS="$OVERLAY_ALL_PKGS $pkg"
 	fi
 	
-	for dep in $depends $makedepends $hostmakedepends;
+	for dep in $(source "srcpkgs/$pkg/template"; \
+		echo $depends $makedepends $hostmakedepends) ;
 	do
 		name="$(pkg_name $dep)"
 		if [ -e "srcpkgs/$name" ]; then
