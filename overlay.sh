@@ -103,7 +103,7 @@ function copy_sources()
 	echo "copying sources/$1 to masterdir/sources/..."
 	local sources="cache/void-packages/masterdir/sources"
 	mkdir -p "$sources"
-	[ -e "sources/$1" ] && rm -rf "sources/$1"
+	[ -e "$sources/$1" ] && rm -rf "$sources/$1"
 	cp -rf "cache/$1" "$sources"
 }
 
