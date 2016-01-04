@@ -16,3 +16,4 @@ void-packages git https://github.com/voidlinux/void-packages/
 
 sway-git git https://github.com/SirCmpwn/sway
 wlc-git git https://github.com/Cloudef/wlc
+orbment-git git https://github.com/Cloudef/orbment

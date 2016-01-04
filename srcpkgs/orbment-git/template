@@ -1,0 +1,24 @@
+# Template file for 'orbment-git'
+
+pkgname=orbment-git
+version=LATEST
+revision=1
+build_style=cmake
+hostmakedepends="cmake pkg-config"
+depends="wlc-git wayland libxkbcommon libinput"
+makedepends="libpng-devel wlc-git-devel wayland-devel libxkbcommon-devel libinput-devel"
+short_desc="A modular wayland compositor based on wlc."
+maintainer="robotanarchy <robotanarchy@irc>"
+license="GPL"
+homepage="https://github.com/Cloudef/orbment"
+
+
+do_fetch() {
+	cp -R /sources/$pkgname $pkgname-$version
+	cd $pkgname-$version
+}
+
+post_install() {
+	chmod u+s ${DESTDIR}/usr/bin/orbment
+	vlicense LICENSE
+}
