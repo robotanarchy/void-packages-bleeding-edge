@@ -28,6 +28,8 @@ sudo xbps-install --repository=binpkgs wlc-git sway-git
 * Void Linux doesn't *accept any packages containing non-release versions such as specific git- or svn-revisions anymore.* [(source)](https://github.com/voidlinux/void-packages/blob/master/CONTRIBUTING.md#getting-your-packages-into-void-by-yourself)
 * `xbps-src` is not able to set package template versions to the their current git versions
 
+**NOTE:** Upstream discussion of XBPS overlays is [here](https://github.com/voidlinux/void-packages/issues/3218).
+
 #### How does it work?
 
 [`overlay.sh`](https://github.com/robotanarchy/void-packages-bleeding-edge/blob/master/overlay.sh) wraps the whole [void-packages](https://github.com/voidlinux/void-packages) repository. Whenever you call it, it updates that void-packages repository (inside the `cache` folder) and merges [`shlibs`](https://github.com/robotanarchy/void-packages-bleeding-edge/blob/master/shlibs) (with `cache/void-packages/common/shlibs`) as well as the [`srcpkgs`](https://github.com/robotanarchy/void-packages-bleeding-edge/tree/master/srcpkgs) folders.
