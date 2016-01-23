@@ -20,25 +20,6 @@ do_fetch() {
 	cd $pkgname-$version
 }
 
-pre_build()
-{
-	# wlc loads '.so' libraries dynamically, not by using their correct
-	# sonames yet. The author of wlc, Cloudef wants to solve this with
-	# plugins: https://github.com/Cloudef/wlc/issues/47
-	# Until that issue is fixed, here's a simple workaround, that hard-
-	# codes the sonames of the libraries used at compile time.
-	
-	echo "Replacing dynamically loaded libraries with their sonames..."
-	while IFS= read -r i; do
-		file="$(echo $i | cut -d ':' -f 1)"
-		lib="$(echo $i | cut -d '"' -f 2)"
-		[ -e "/usr/lib/$lib" ] || continue
-		lib_soname="$(basename $(realpath /usr/lib/$lib))"
-		echo "$file: $lib -> $lib_soname"
-		sed --in-place "s/\"$lib\"/\"$lib_soname\"/g" "$file"
-	done < <(grep -r -E '"lib.+\.so"' --only-matching src)
-}
-
 post_install() {
 	vlicense LICENSE
 }

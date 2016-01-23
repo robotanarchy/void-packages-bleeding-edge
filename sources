@@ -13,7 +13,12 @@
 #
 
 void-packages git https://github.com/voidlinux/void-packages/
-
 sway-git git https://github.com/SirCmpwn/sway
 wlc-git git https://github.com/Cloudef/wlc
 orbment-git git https://github.com/Cloudef/orbment
+
+
+
+# For debugging, just create a local repository and add it here, eg:
+# wlc-git git file:///home/your-user/code/wlc-local-changes-debug
+
